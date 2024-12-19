@@ -1,0 +1,144 @@
+18/12/2024 
+------------------
+selenium:
+------------
+WebDriver setup
+1.Install jdk latest version
+2.Install eclipse Latest edition
+3.Install WebDriver from files from selenium website.
+4.Configure Eclipse with WebDriver(selenium dependency latest).
+
+1.Create a maven project
+2.src/main/java folder - create a class (LoginPage) with main function under default package.
+3.Import selenium inside maven project.
+a)add dependency in pom.xml file
+b)add jars in the maven project.  
+
+Add jars - Download seleniumjar (from selenium website Java, extract zip file)Right click on maven project->build path->configure build path->In Libraries->Add external jars->Apply ->Apply & Save
+
+ZAP:
+---------
+OWASP ZAP Tutorial : -
+Zed Attack Proxy(ZAP)
+Notes: https://www.zaproxy.org/getting-started/
+What is ZAP?
+A tool to find vulnerabilities in a Web Application.
+It is Open Source and completely FREE
+Cross Platform – Windows, Linux and Macs
+ 
+Features:
+Intercepting Proxy
+Spider
+Passive Scan
+Active Scan
+Fuzzing
+Reports
+ZAP Extensions
+Dynamic SSL Certificates
+ 
+https://www.zaproxy.org/download/
+ 
+2: ZAP Installing Dynamic SSL Certificate.
+Step 1: Open the OWASP ZAP Tool
+Step 2: Click on no, I do not want to persist the session of now
+             Click on Remember my choice.
+Step 3: Go to Tools options-----??Options--??Network->server certificate->Dynamic SSL Certificate -??Save it--??Select a folder??cancle/ok
+
+Step 4: Close the OWASP ZAP tool and open Firefox browser
+Go to setting------??privacy and security -----??view certificates---??import button-??select the folder??add certificate??trusted certificate click it??import it successfully 
+
+Same as JMeter import the certificates and you can import certificate for other browsers as well.
+This is necessary so that you can navigate to various applications/website in zap 
+
+Intercepting Proxy
+-----------------------
+Browser -----------??OWASP ZAP-------------??Web Application.
+ 
+Step 1: Open OWASP ZAP Tool-----??At footer proxy port 8080 will be started,-??Go to options-----??tools----??Network ---??Local Proxy
+
+step2:Configure on firefox ->network settings->Port 8081, HttpProxy : localhost
+
+http://quiz-fe-test.hematitecorp.com/
+ 
+admin@gmail.com 
+ 
+Admin@1234
+ 
+5: Configuration FoxProxy with Zap
+Step 1: open FireFox and go to network settings-------?? click to No proxy settings. (Make sure that no proxy settings in on). Then open new tab on firefox and type Firefox add on, hit enter----?? search box : FoxyProxy Standard--??Add to FireFox.
+ 
+Now open OWASP ZAP Tool and check local proxy settings and as per that settings add data into FoxyProxy extension.
+ 
+Open FoxyProxy extension ----??options---??proxies---------??add ------??add data there.
+
+title : ZAPNetwork
+ 
+localhost
+ 
+8081
+
+Go to new tab of firefox browser now, open any website, parallel open OWASP ZAP tool with that and see no recording is going on but, when you will enable the ZAPNetwork from Firefox browser extension then, it will show that Network as well as start recordings also.
+ 
+Extension----??click on ZAPNetwork, Refresh that website again, then it will record all requests.
+has context menu
+
+Actually we are intercepting login request here,
+Now here, we are able to see the credential, and if we changed the password from zap tool then, your credentials will be changed and you will not able to open the application, this is often called Man-In-The-Middle-Attack.
+ 
+Note: Try for the application to which you have the permission , please don't try for anyone else account.
+
+
+Intercepting Specific Requests with OWASP ZAP
+ 
+Step 1 : Example: Intercepting a specific api request with zap tool.
+ 
+Step 1: Open Firefox browser----??enable FroxyProxy ZAP Network----??Open Zap Tool-----??Open hematite quiz app on firefox-----??On zap tool, It will start recodring all requests.
+ 
+Click on questions tab : zap tool will record it
+Right Click on that request in zap tool-------??show in site tab--??right click in site tab on request??Break.
+ 
+Here If I chaged the String, then in the quiz app the question tab/ api will not work.
+And in information window, you will see new tab added that is breakpoint, where you can see all added breakpoints.
+ 
+Note: Do not perfornm practically it will change the settings in Quiz App.
+ 
+ 
+Manual Explore for Vulnerability Assessment in OWASP ZAP
+Step 1: Open zap -??click on Manual Explore option on the workbench
+ 
+Spidering a website with OWASP ZAP
+ 
+Spidering allows you to launch an automated scan against an application.
+Spider explores by findings links in html pages.
+It begins with set of URLs called Seeds
+The Spider then visits these URL’s, identifies all the hyperlinks in the pages.
+Add them to the list of URLs to visit
+The process continues recursively as long as new resources are found
+ 
+Step 1: Open zap tool
+Click on plus icon in the information window and click on spider.
+Click on new scan, spider dialog window
+ 
+ 
+scan progress
+ 
+Manual Explore, spdiring - exploring, active scan, automated scan
+ 
+Passive scan rules define what kind of vulnerabilities to check for in the background.
+Application Errors
+Coockie without samesite Attribute.
+Cookie Domain Script inclusion
+Information Disclosure in URL
+Information Disclosure in Comments
+ 
+ 
+Open zap tool-----??tools-------??
+options----??passive scan rules--??
+Threshold = High---??fewer potantials issues will be raised
+                     Medium -??Avarage potential issues will be raised
+                     Low--?? maximum potential issues will be raised.
+options----??passive scanner--?? Here we can configure if needed, can set max alerts ranges etc.
+ 
+ 
+ 
+ 
