@@ -1,0 +1,186 @@
+19/12/2024
+---------------
+Appium:
+---------
+
+Appium is a tool used for UI automation testing
+ 
+Pre-requisite for appium : Install node js and npm.
+ 
+On CMD:
+---------
+appium -v
+ 
+Start appium appium
+
+1.Appium download.
+Run following command on cmd
+npm install  -g appium.
+ 
+ 
+2.Appium deskstop client download
+https://github.com/appium/appium-desktop/releases/tag/v1.8.2
+download below setup.
+appium-desktop-setup-1.8.2.exe
+148 MBNov 6, 2018
+
+appium doctor : install appium-doctor -g 
+ 
+npm install appium-doctor –g
+ 
+appium-doctor -h
+ 
+appium-doctor --android
+ 
+Next configure the environment for android device.
+ 
+Download SDK tool
+https://developer.android.com/studio
+ 
+Software development kit
+ 
+Keep downloaded sdk tool zip file in specific folder and unzip it
+ 
+https://developer.android.com/tools
+ 
+cmdlines-tools
+ 
+Create a cmdlines-tools on c driver inside it create latest folder and keep all sources in it
+ 
+sdkmanager --sdk_root="C:\cmdline-tools" "platform-tools" "platforms;android-33"
+ 
+cmd - adb devices
+ 
+Android Debug Bridge(adb) to connect device wit system
+ Make device ready
+Enable developer mode
+Make USB Debugging on
+ 
+Open your mobile device--------??settings--------??about phone----??Build number------??you have to tap 7 times on it(then it will be enable for developer mode )
+Then when you go back to settings(mobile) after sometime you will see developer options--------??USB debugging--------??make it on
+ 
+You can connect device to computer system through USB cable
+If asked enable USB Debbugging
+ 
+ 
+After this run adb devices command
+ 
+It will show your device number and attached message on cmd. 
+
+ Open Eclipse->Create a Maven project->Add plugin (TestNG) 
+
+AppiumSetup
+ 
+src/test/java ->com.appiumtest under this package add class BaseClass
+ 
+Help ->Eclipse marketplace->TestNG->enter ->click on install 
+
+package Tests;
+ 
+import java.net.URL;
+ 
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+ 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
+ 
+public class BaseClass {
+ 
+    AppiumDriver driver;
+ 
+    @BeforeTest
+    public void setup() {
+        try {
+            DesiredCapabilities caps = new DesiredCapabilities();
+ 
+            // Platform Name
+            caps.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+ 
+            // Platform Version
+            caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "11.0");
+ 
+            // Device Name
+            caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Vivo V20");
+ 
+            // Unique Device Identifier
+            caps.setCapability(MobileCapabilityType.UDID, "123456789ABCDEF"); // Replace with actual UDID
+ 
+            // Automation Name
+            caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
+ 
+            // Appium Server URL
+            URL url = new URL("http://127.0.0.1:4723/wd/hub");
+ 
+            // Initialize the Appium Driver
+            driver = new AndroidDriver<>(url, caps);
+ 
+        } catch (Exception exp) {
+            System.out.println("Error cause is : " + exp.getCause());
+            System.out.println("Message is : " + exp.getMessage());
+            exp.printStackTrace();
+            throw new RuntimeException("Driver setup failed!");
+        }
+    }
+ 
+    @Test
+    public void testExample() {
+        // Example test logic
+        System.out.println("Driver is running: " + (driver != null));
+    }
+ 
+    @AfterTest
+    public void teardown() {
+        // Quit the driver after tests
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
+
+shift + ctrl +o
+ 
+Right click on maven project->buildpath->configure build path->Libraries->Add Libraries ->TestNG->Apply and close
+ 
+In pom.xml
+------------
+<!-- Appium Java Client -->
+    <dependency>
+        <groupId>io.appium</groupId>
+        <artifactId>java-client</artifactId>
+        <version>8.5.1</version>
+    </dependency>
+ 
+    <!-- Selenium -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.11.0</version>
+    </dependency>
+ 
+        <!-- TestNG -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
+System editor
+ 
+emailable report ->open with system editor and index.html - >open with web browser
+ 
+This is how, you can generate report of android phone
+ 
+Appium is completed, can practice.
+ 
+Tomorrow we will start with cucumber
+ 
+Task for appium: Try to connect your android phones on your personal laptops at home, configure all the setup and generate report.
+ 
+ 
+ 
